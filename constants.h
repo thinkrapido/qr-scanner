@@ -2,7 +2,8 @@
 #define CONSTANTS_H_
 
 #define DBG 0
-#define SHOW_QR_CODES 1
+#define SHOW_QR_CODES 0
+#define LOOPING 0
 
 
 #endif

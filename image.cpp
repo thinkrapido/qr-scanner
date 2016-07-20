@@ -9,8 +9,6 @@
 #include <opencv2/videostab/videostab.hpp>
 #include <iostream>
 #include <cmath>
-#include <stdlib.h>
-#include <time.h>
 
 #include "Circle.h"
 
@@ -24,7 +22,7 @@ int main ( int argc, char **argv )
 {
 
 
-	srand(time(NULL));
+	bool looping = true;
 
 	Mat backup = imread(argv[1]);
 
@@ -44,7 +42,7 @@ int main ( int argc, char **argv )
 	float areat,arear,areab, large, padding;
 
 	int key = 0;
-	while(key != 'q')				// While loop to query for Image Input frame
+	while(looping && key != 'q')				// While loop to query for Image Input frame
 	{
 		Mat image = backup.clone();
 
@@ -93,6 +91,10 @@ int main ( int argc, char **argv )
 		size_t c = 2;
 		size_t size = dots.size();
 
+		if (size == 0) {
+			return 0;
+		}
+
 		while (true) {
 			permutations.push_back(new Circle(dots.at(a), dots.at(b), dots.at(c)));
 			c++;
@@ -134,7 +136,12 @@ int main ( int argc, char **argv )
 			imshow ( "Traces", traces );
 		}
 
-		key = waitKey(500000);	// OPENCV: wait for 1ms before accessing next frame
+	if (LOOPING == 1) {
+			key = waitKey(500000);	// OPENCV: wait for 1ms before accessing next frame
+		}
+		else {
+			looping = false;
+		}
 
 	}	// End of 'while' loop
 
